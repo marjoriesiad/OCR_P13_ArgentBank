@@ -3,33 +3,38 @@ import axios from "axios";
 
 const API_URL = "http://localhost:3001/api/v1/";
 
-// Slice
+// Récupère l'user dans le localStorage pour en faire l'user initial
 const initialUser = localStorage.getItem("user")
   ? JSON.parse(localStorage.getItem("user"))
   : null;
 
+// SLICE : division du state en plusieurs tranches.
 const slice = createSlice({
   name: "user",
   initialState: {
     user: initialUser,
   },
   reducers: {
+    // ACTION : connexion - ajoute les informations dans le localStorage
     loginSuccess: (state, action) => {
       state.user = action.payload;
       localStorage.setItem("user", JSON.stringify(action.payload));
       console.log("login dispatched");
     },
+    // ACTION : deconnexion - retire les informations du localStorage
     logoutSuccess: (state, action) => {
       state.user = null;
       localStorage.removeItem("user");
       localStorage.clear();
     },
+    // ACTION : récupération du profile - vide le localStorage avant d'y ajouter les bonnes informations
     fetchedUserProfile: (state, action) => {
       console.log("userprofile dispatched");
       state.user = action.payload;
       localStorage.clear();
       localStorage.setItem("user", JSON.stringify(action.payload));
     },
+    // ACTION : update du profile - ajoute les nouvelles informations dans le localStorage
     updatedUserProfile: (state, action) => {
       console.log("userprofile updated");
       state.user = action.payload;

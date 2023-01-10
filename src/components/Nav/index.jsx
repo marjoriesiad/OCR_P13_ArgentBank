@@ -27,7 +27,7 @@ const Nav = () => {
                 {user.userProfile.firstName}
               </div>
               <div className="login-logout">
-                <i class="fa-solid fa-right-from-bracket"></i>
+                <i className="fa-solid fa-arrow-right-from-bracket"></i>
                 <button
                   onClick={() => {
                     dispatch(logout());
